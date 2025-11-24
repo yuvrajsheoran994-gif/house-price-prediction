@@ -1,0 +1,131 @@
+/* ============================
+   MINIMAL DARK AI DASHBOARD UI
+   ============================ */
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #0b0b0b;
+    color: #e5e5e5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout wrapper */
+.page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #9d9d9d;
+    margin-top: -5px;
+}
+
+/* Grid layout */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+/* Panel cards */
+.panel {
+    background: #141414;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.panel h2 {
+    margin-top: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+/* Form elements */
+.row {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #cccccc;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #2a2a2a;
+    background: #1a1a1a;
+    color: #e5e5e5;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.2s ease;
+}
+
+input:focus,
+select:focus {
+    border: 1px solid #4d7cff;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4d7cff;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.25s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #365acb;
+}
+
+/* Result Cards */
+.card {
+    background: #1a1a1a;
+    border: 1px solid #2d2d2d;
+    padding: 18px;
+    border-radius: 10px;
+    margin-top: 18px;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.prop-box {
+    background: #121212;
+    border: 1px solid #2a2a2a;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 12px 0;
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "states": [
+      "Andhra Pradesh",
+      "Assam",
+      "Bihar",
+      "Chhattisgarh",
+      "Delhi",
+      "Gujarat",
+      "Haryana",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Tamil Nadu",
+      "Telangana",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "property_types": [
+      "Apartment",
+      "Independent House",
+      "Villa"
+    ]
+  },
+  "city_map": {
+    "Andhra Pradesh": [
+      "Vijayawada",
+      "Vishakhapatnam"
+    ],
+    "Assam": [
+      "Guwahati",
+      "Silchar"
+    ],
+    "Bihar": [
+      "Gaya",
+      "Patna"
+    ],
+    "Chhattisgarh": [
+      "Bilaspur",
+      "Raipur"
+    ],
+    "Delhi": [
+      "Dwarka",
+      "New Delhi"
+    ],
+    "Gujarat": [
+      "Ahmedabad",
+      "Surat"
+    ],
+    "Haryana": [
+      "Faridabad",
+      "Gurgaon"
+    ],
+    "Jharkhand": [
+      "Jamshedpur",
+      "Ranchi"
+    ],
+    "Karnataka": [
+      "Bangalore",
+      "Mangalore",
+      "Mysore"
+    ],
+    "Kerala": [
+      "Kochi",
+      "Trivandrum"
+    ],
+    "Madhya Pradesh": [
+      "Bhopal",
+      "Indore"
+    ],
+    "Maharashtra": [
+      "Mumbai",
+      "Nagpur",
+      "Pune"
+    ],
+    "Odisha": [
+      "Bhubaneswar",
+      "Cuttack"
+    ],
+    "Punjab": [
+      "Amritsar",
+      "Ludhiana"
+    ],
+    "Rajasthan": [
+      "Jaipur",
+      "Jodhpur"
+    ],
+    "Tamil Nadu": [
+      "Chennai",
+      "Coimbatore"
+    ],
+    "Telangana": [
+      "Hyderabad",
+      "Warangal"
+    ],
+    "Uttar Pradesh": [
+      "Lucknow",
+      "Noida"
+    ],
+    "Uttarakhand": [
+      "Dehradun",
+      "Haridwar"
+    ],
+    "West Bengal": [
+      "Durgapur",
+      "Kolkata"
+    ]
+  }
+}

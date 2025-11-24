@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AI Housing Recommender</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Optional Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="title">AI Housing Recommender</div>
+    <div class="subtitle">Smart property insights powered by your dataset</div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- INPUT PANEL -->
+    <div class="panel">
+      <h2>Enter Property Details</h2>
+
+      <form id="prop-form" onsubmit="return false;">
+
+        <div class="row">
+          <label>State</label>
+          <select id="state" required>
+            <option value="">-- choose state --</option>
+            {% for s in states %}
+              <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="row">
+          <label>City</label>
+          <select id="city" required>
+            <option value="">-- choose city --</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label>Property Type</label>
+          <select id="property_type" required>
+            <option value="">-- choose type --</option>
+            {% for p in property_types %}
+              <option value="{{ p }}">{{ p }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="row">
+          <label>BHK</label>
+          <input id="BHK" type="number" min="0" step="1" placeholder="e.g., 2">
+        </div>
+
+        <div class="row">
+          <label>Size in SqFt</label>
+          <input id="Size_in_SqFt" type="number" min="0" step="1" placeholder="e.g., 850">
+        </div>
+
+        <div class="row">
+          <label>Year Built</label>
+          <input id="Year_Built" type="number" min="1800" max="2025" placeholder="e.g., 2012">
+        </div>
+
+        <button id="submit-btn" onclick="submitForm()">Predict</button>
+
+      </form>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="panel">
+      <h2>Prediction & Results</h2>
+      <div id="result">
+        <p style="color:#777;">Results will appear here after prediction.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+async function fetchCities(state) {
+  const res = await fetch(`/cities?state=${encodeURIComponent(state)}`);
+  const data = await res.json();
+  const citySelect = document.getElementById('city');
+  citySelect.innerHTML = '<option value="">-- choose city --</option>';
+  (data.cities || []).forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; 
+    opt.text = c;
+    citySelect.appendChild(opt);
+  });
+}
+
+document.getElementById('state').addEventListener('change', function() {
+  const s = this.value;
+  if (s) fetchCities(s);
+});
+
+async function submitForm() {
+  const payload = {
+    State: document.getElementById('state').value,
+    City: document.getElementById('city').value,
+    Property_Type: document.getElementById('property_type').value,
+    BHK: document.getElementById('BHK').value || null,
+    Size_in_SqFt: document.getElementById('Size_in_SqFt').value || null,
+    Year_Built: document.getElementById('Year_Built').value || null
+  };
+
+  const resp = await fetch('/predict', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
+
+  const data = await resp.json();
+  renderResult(data);
+}
+
+function renderResult(data) {
+  const box = document.getElementById('result');
+  box.innerHTML = '';
+
+  /* Prediction Card */
+  const predCard = document.createElement('div');
+  predCard.className = 'card';
+  predCard.innerHTML = `
+    <h3>Predicted Price</h3>
+    <p>${data.prediction_lakhs !== null ? (data.prediction_lakhs.toFixed(2) + ' lakhs') : 'Model not available'}</p>
+  `;
+  box.appendChild(predCard);
+
+  /* Matching Properties */
+  const matchCard = document.createElement('div');
+  matchCard.className = 'card';
+  matchCard.innerHTML = `<h3>Top Matching Properties</h3>`;
+
+  if (data.matches && data.matches.length) {
+    data.matches.forEach(m => {
+      const item = document.createElement('div');
+      item.className = 'prop-box';
+      item.innerHTML = `
+        <strong>${m.Locality || ''} — ${m.Property_Type || ''} ${m.BHK ? ('|' + m.BHK + ' BHK') : ''}</strong>
+        <p>Size: ${m.Size_in_SqFt || '-'} sqft | Price: ${m.Price_in_Lakhs || '-'} lakhs</p>
+        <p>Amenities: ${m.Amenities || '-'}</p>
+        <p>Furnished: ${m.Furnished_Status || '-'} | Floor: ${m.Floor_No || '-'} / ${m.Total_Floors || '-'}</p>
+      `;
+      matchCard.appendChild(item);
+    });
+  } else {
+    matchCard.innerHTML += `<p>No matching properties found.</p>`;
+  }
+
+  box.appendChild(matchCard);
+}
+</script>
+
+</body>
+</html>
